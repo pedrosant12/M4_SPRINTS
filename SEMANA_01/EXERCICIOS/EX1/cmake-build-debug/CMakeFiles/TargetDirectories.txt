@@ -1,0 +1,3 @@
+C:/Users/Lenovo/M4_SPRINTS/SEMANA_01/EXERCICIOS/EX1/cmake-build-debug/CMakeFiles/EX1.dir
+C:/Users/Lenovo/M4_SPRINTS/SEMANA_01/EXERCICIOS/EX1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Lenovo/M4_SPRINTS/SEMANA_01/EXERCICIOS/EX1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
