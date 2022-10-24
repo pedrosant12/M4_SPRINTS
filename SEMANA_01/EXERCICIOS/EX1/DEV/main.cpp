@@ -1,25 +1,23 @@
 #include <iostream>
 #include <string>
-
-//g++ hello.cpp -o hello
-//./hello
-
 using namespace std;
 
 // 1 — Faça uma função que recebe uma certa medida e ajusta ela percentualmente
 // entre dois valores mínimo e máximo e retorna esse valor
-int perc(){
-    int perc;
-    perc = 5;
-    cout << perc <<endl;
 
-
-    return 0;
-
+int ajuste (int medida, int minp, int maxp){
+    medida = (medida - minp) / (maxp - minp) * 100;
+    return medida;
 }
 // 2 — Faça uma função que simule a leitura de um sensor lendo o
 // valor do teclado ao final a função retorna este valor
 
+int userinput(){
+    int medida;
+        cout <<"Digite o valor: \n";
+        cin >> medida;
+    return medida;
+}
 // 3 — Faça uma função que armazena uma medida inteira qualquer
 // em um vetor fornecido. Note que como C não possui vetores
 // nativos da linguagem, lembre-se que você precisa passar o 
@@ -27,6 +25,13 @@ int perc(){
 // Evite também que, por acidente, um valor seja escrito
 // numa área de memória fora do vetor
 
+int insert(int nvalue, int last, int *rando) {
+    int *array = rando;
+    array[last] = nvalue;
+    int result;
+    result = last + 1;
+    return result;
+}
 
 
 // 4 — Faça uma função que recebe um vetor com 4 posições que contém
@@ -35,11 +40,34 @@ int perc(){
 // de maior distância ("Direita", "Esquerda", "Frente", "Tras") e a 
 // segunda é esta maior distância.
 
+char * inputs (int *array, int *max) {
+    const char *directions[] = {"Forward", "Back", "Right", "Left"};
+    int p0 = 0;
+    int i = 0;
+    for (int v = 0; v < 4; i++) {
+        if (array[i] > *max) {
+            *max = array[i];
+            p0 = i;
+        }
+    }
 
-
-
+}
 // 5 — Faça uma função que pergunta ao usuário se ele deseja continuar o mapeamento e
 // retorna verdadeiro ou falso
+    bool comando() {
+    char question;
+    cout << "Continuar mapeamento? Y/N";
+    cin >> question;
+    if (toupper(question) == 'Y') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
+
 
 
 // 6 — A função abaixo (que está incompleta) vai "dirigindo" virtualmente um robô
@@ -56,24 +84,22 @@ int perc(){
 // enviado pelo usuário. 
 //
 //      Complete a função com a chamada das funções já criadas
-int dirige(int *v,int maxv){
-	int maxVetor = maxv;
-	int *vetorMov = v;
-	int posAtualVetor = 0;
-	int dirigindo = 1;		
-	while(dirigindo){		
-		int medida = /// .. Chame a função de de leitura da medida para a "Direita"
-		medida = converteSensor(medida,0,830);
-		posAtualVetor = // Chame a função para armazenar a medida no vetor
-        ///////////////////////////////////////////////////////////////////////////		
-		// Repita as chamadas acima para a "Esquerda", "Frente", "Tras"
-		// ................
-		///////////////////////////////////////////////////////////////////////////
-		dirigindo = leComando();		
-	}
-	return posAtualVetor;
-}
+int dirige(int *v, int maxv) {
+    int maxVetor = maxv;
+    int *vetorMov = v;
+    int posAtualVetor = 0;
+    int dirigindo = 1;
+    while (dirigindo) {
 
+        for (int i = 0; i < 4; i++) {
+            int medida = userinput();
+            medida = ajuste(medida, 0, 830);
+            posAtualVetor = insert(medida, posAtualVetor, vetorMov);
+        }
+        dirigindo = comando();
+    }
+    return posAtualVetor;
+}
 
 // O trecho abaixo irá utilizar as funções acima para ler os sensores e o movimento
 // do robô e no final percorrer o vetor e mostrar o movimento a cada direção baseado 
@@ -83,7 +109,7 @@ void percorre(int *v,int tamPercorrido){
 	int maiorDir = 0;
 	
 	for(int i = 0; i< tamPercorrido; i+=4){
-		char *direcao = direcaoMenorCaminho(&(vetorMov[i]),&maiorDir);
+		char *direcao = inputs(&(vetorMov[i]),&maiorDir);
 		printf("Movimentando para %s distancia = %i\n",direcao,maiorDir);
 	}
 }
@@ -98,7 +124,3 @@ int main(int argc, char** argv) {
 	
 	return 0;
 }
-
-
-
-
